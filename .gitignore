@@ -11,3 +11,4 @@ MANIFEST.MF
 *.jar
 RemoteSystemsTempFiles
 bin
+/.metadata/
