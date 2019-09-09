@@ -7,12 +7,8 @@ public class ArrayString {
 		boolean[] flags = new boolean[128];
 		for (int i = 0; i < input.length(); i++) {
 			int asciiVal = (int) input.charAt(i);
-			if (flags[asciiVal]) {
-				return false;
-			}
-			else {
-				flags[asciiVal] = true;
-			}
+			if (flags[asciiVal]) {return false;}
+			else {flags[asciiVal] = true;}
 		}
 		return true;
 	}
@@ -54,6 +50,14 @@ public class ArrayString {
 		return true;
 	}
 	
+	public static boolean rotationChecker(String one, String two) {
+		String combined = one + one;
+		if(combined.contains(two)) {return true;}
+		else {return false;}
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		
 		//Testing first problem, should return false then true
@@ -65,10 +69,15 @@ public class ArrayString {
 		System.out.println("Strings are permutations: " + permutation("Not","Perm"));
 		
 		//Testing third problem. First two test even, second test odd
-		System.out.println("Odd string is a permutation of a palindrome: " + palindromePermutation("opooo"));
-		System.out.println("Odd string is a permutation of a palindrome: " + palindromePermutation("oppoo"));
 		System.out.println("Even string is a permutation of a palindrome: " + palindromePermutation("aadd"));
 		System.out.println("Even string is a permutation of a palindrome: " + palindromePermutation("aada"));
+		System.out.println("Odd string is a permutation of a palindrome: " + palindromePermutation("opooo"));
+		System.out.println("Odd string is a permutation of a palindrome: " + palindromePermutation("oppolo"));
+	
+		//Testing the fourth problem, should return true then false
+		System.out.println("Is waterbottle a rotation of erbottlewat? T/F: " + rotationChecker("waterbottle", "erbottlewat"));
+		System.out.println("Is waterbottle a rotation of erbottlewat? T/F: " + rotationChecker("sodacan", "bottledwater"));
+		
 	}
 
 }
