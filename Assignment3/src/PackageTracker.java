@@ -1,36 +1,41 @@
 import java.util.Calendar;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Vector;
 import java.util.stream.Collectors;
 import java.sql.*;
 
-public class PackageTracker {
+public class PackageTracker implements Runnable{
 
 	private static Vector<Integer> path = new Vector<Integer>();
-
+	private String startingLocation;
+	private String endLocation;
+	public void run() {
+        System.out.println("Please input starting location: ");
+		Scanner in = new Scanner(System.in); 
+        startingLocation = in.nextLine(); 
+        System.out.println("Please input ending location: ");
+        endLocation = in.nextLine();
+        System.out.println("You entered string "+ startingLocation + endLocation); 
+		findPath(locationToNode(startingLocation), locationToNode(endLocation));
+		notify();
+	}
 	
-	static class Package{
+	static class Package {
 		private int weight;
 		private String packaging;
 		private String dimensions;	
 		private String trackingNumber;
 		private int lastLocation = 1;
-		private String startingLocation;
-		private String endLocation;
 		
-		Package(int w, String p, String d, String sl, String dl){
+		Package(int w, String p, String d){
 			this.weight = w;
 			this.packaging = p;
 			this.dimensions = d;
-			this.startingLocation = sl;
-			this.endLocation = dl;
 			this.trackingNumber = generateTracking();
 			System.out.print("Thanks for shipping your package with us! Your tracking number is: ");
 			System.out.println(this.trackingNumber);
 			this.addPackage();
-			findPath(locationToNode(startingLocation), locationToNode(endLocation));
-			shipPackage(this);
-
 		}
 		
 		private String generateTracking() {
@@ -345,7 +350,10 @@ public class PackageTracker {
 		return returnInt;
 	}
 	public static void main(String[] args) {
-		Package primePackage = new Package(5, "Box", "5x5x5", "Northborough, MA", "Phoenix, AZ");
+		Package primePackage = new Package(5, "Box", "5x5x5");
+		Thread packageTrack = new Thread(new PackageTracker());
+		packageTrack.start();
+		shipPackage(primePackage);
 		primePackage.trackPackage();
 	}
 }
