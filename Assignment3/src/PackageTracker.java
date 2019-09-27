@@ -16,9 +16,7 @@ public class PackageTracker implements Runnable{
         startingLocation = in.nextLine(); 
         System.out.println("Please input ending location: ");
         endLocation = in.nextLine();
-        System.out.println("You entered string "+ startingLocation + endLocation); 
 		findPath(locationToNode(startingLocation), locationToNode(endLocation));
-		notify();
 	}
 	
 	static class Package {
@@ -350,10 +348,24 @@ public class PackageTracker implements Runnable{
 		return returnInt;
 	}
 	public static void main(String[] args) {
+		//When we bring a package to the post office, we need to specify 1. Weight 2. Packaging type 3. Dimensions
 		Package primePackage = new Package(5, "Box", "5x5x5");
+		
+		//Then, a new thread is created to calculate the fastest path to the destination
 		Thread packageTrack = new Thread(new PackageTracker());
 		packageTrack.start();
+		
+		//We join the thread to make main thread wait on the path tracker to finish
+		try {
+			packageTrack.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		//Then we ship the package based on the path calculated by the thread
 		shipPackage(primePackage);
+		
+		//Track it once its at the destination
 		primePackage.trackPackage();
 	}
 }
