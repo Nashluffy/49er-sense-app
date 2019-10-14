@@ -26,6 +26,10 @@ public class PackageTracker implements Runnable{
 		private String trackingNumber;
 		private int lastLocation = 1;
 		
+		private String getTrackingNumber() {
+			return this.trackingNumber;
+		}
+		
 		Package(int w, String p, String d){
 			this.weight = w;
 			this.packaging = p;
@@ -58,27 +62,6 @@ public class PackageTracker implements Runnable{
 			      preparedStmt.setString   (3, packaging);
 			      preparedStmt.setInt(4, weight);
 			      preparedStmt.execute();
-			}
-			catch(Exception e) {System.out.println(e);}
-		}
-		private void trackPackage() {
-			try {
-	            Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection con = 
-			       DriverManager.getConnection("jdbc:mysql://localhost:3306/Assignment3?" +
-                           "user=nash&password=githubsafepassword&serverTimezone=UTC");
-			      Calendar calendar = Calendar.getInstance();
-			      java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-			      String query = "SELECT * FROM packageLocation WHERE vcTrackingNumber = ? ORDER BY intNodesTraveled ASC";
-			      PreparedStatement preparedStmt = con.prepareStatement(query);
-			      preparedStmt.setString (1, trackingNumber);
-			      ResultSet rs = preparedStmt.executeQuery();
-			      while ( rs.next() )
-			      {
-			        System.out.print("Stop Number: " + rs.getInt("intNodesTraveled"));
-			        System.out.println(" Location: " + rs.getString("vcLocation"));
-			      }
-			      rs.close();
 			}
 			catch(Exception e) {System.out.println(e);}
 		}
@@ -180,8 +163,35 @@ public class PackageTracker implements Runnable{
     } 	
 	private static void shipPackage(Package p) {
 		for (int k = 0; k < path.size(); k++) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			p.sendSingleLocation(nodeToLocation(path.elementAt(k)));
 		}
+	}
+	
+	private static void trackPackage(String trackingNumber){
+		try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = 
+		       DriverManager.getConnection("jdbc:mysql://localhost:3306/Assignment3?" +
+                       "user=nash&password=githubsafepassword&serverTimezone=UTC");
+		      Calendar calendar = Calendar.getInstance();
+		      java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+		      String query = "SELECT * FROM packageLocation WHERE vcTrackingNumber = ? ORDER BY intNodesTraveled ASC";
+		      PreparedStatement preparedStmt = con.prepareStatement(query);
+		      preparedStmt.setString (1, trackingNumber);
+		      ResultSet rs = preparedStmt.executeQuery();
+		      while ( rs.next() )
+		      {
+		        System.out.print("Stop Number: " + rs.getInt("intNodesTraveled"));
+		        System.out.println(" Location: " + rs.getString("vcLocation"));
+		      }
+		      rs.close();
+		}
+		catch(Exception e) {System.out.println(e);}
 	}
     
 	private static String nodeToLocation(int n) {
@@ -350,15 +360,25 @@ public class PackageTracker implements Runnable{
 	public static void main(String[] args) {
 		//When we bring a package to the post office, we need to specify 1. Weight 2. Packaging type 3. Dimensions
 		Package primePackage = new Package(5, "Box", "5x5x5");
-		
+		Package diffPackage = new Package(10, "Circle", "5x5x5");
+
 		//Then, a new thread is created to calculate the fastest path to the destination
-		Thread packageTrack = new Thread(new PackageTracker());
-		packageTrack.start();
+		Thread packageTrack1 = new Thread(new PackageTracker());
+		Thread packageTrack2 = new Thread(new PackageTracker());
+		packageTrack1.start();
+		packageTrack2.start();
+
+		
 		
 		//We join the thread to make main thread wait on the path tracker to finish
 		try {
-			packageTrack.join();
+			packageTrack1.join();
 		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		try {
+			packageTrack2.join();
+		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
@@ -366,6 +386,6 @@ public class PackageTracker implements Runnable{
 		shipPackage(primePackage);
 		
 		//Track it once its at the destination
-		primePackage.trackPackage();
+		trackPackage(primePackage.getTrackingNumber());
 	}
 }
