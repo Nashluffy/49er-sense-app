@@ -55,24 +55,26 @@ public class PackageTracker implements Runnable{
 			String saltStr = salt.toString();
 			return saltStr;
 		}
+		private void addPackage() {
 
-		private void sendSingleLocation(String location) {
+			//final SQLiteDatabase mydatabase = openOrCreateDatabase("location",null);
 			try {
 	            Class.forName("com.mysql.cj.jdbc.Driver");
-				Connection con = 
+				Connection con =
 			       DriverManager.getConnection("jdbc:mysql://localhost:3306/Assignment3?" +
-                           "user=nash&password=githubsafepassword&serverTimezone=UTC");
+                           "user=nash&password=githubsafepassword123&serverTimezone=UTC");
 			      Calendar calendar = Calendar.getInstance();
 			      Date startDate = new Date(calendar.getTime().getTime());
-			      String query = "INSERT INTO packageLocation (vcTrackingNumber, intNodesTraveled, vcLocation) VALUES (?,?,?)";
+			      String query = "INSERT INTO packages (vcTrackingNumber, vcDimensions, vcPackaging, intWeight)"
+			        + " values (?, ?, ?, ?)";
 			      PreparedStatement preparedStmt = con.prepareStatement(query);
 			      preparedStmt.setString (1, trackingNumber);
-			      preparedStmt.setInt (2, lastLocation);
-			      preparedStmt.setString (3, location);
+			      preparedStmt.setString (2, dimensions);
+			      preparedStmt.setString   (3, packaging);
+			      preparedStmt.setInt(4, weight);
 			      preparedStmt.execute();
-			      lastLocation += 1;
 			}
-			catch(Exception e) {System.out.println(e); lastLocation -= 1;}
+			catch(Exception e) {System.out.println(e);}
 		}
 	}
 	static int[][] adjacencyMatrix = { 
@@ -152,15 +154,17 @@ public class PackageTracker implements Runnable{
         printPath(parents[currentVertex], parents); 
         path.add(currentVertex);
     } 	
-	public static void shipPackage(Package p) {
+	public void shipPackage(Package p) {
+		//dbHandler db = new dbHandler();
 		for (int k = 0; k < path.size(); k++) {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			p.sendSingleLocation(nodeToLocation(path.elementAt(k)));
+			//db.sendSingleLocation(nodeToLocation(path.elementAt(k)), this);
 		}
+
 	}
 	
 	public static void trackPackage(String trackingNumber){

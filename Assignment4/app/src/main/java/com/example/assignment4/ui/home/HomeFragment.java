@@ -25,14 +25,20 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Calendar;
+import java.util.Vector;
 
 import static android.content.Context.MODE_PRIVATE;
+
+
+
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     int i = 0;
     String overall = "";
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,8 +59,11 @@ public class HomeFragment extends Fragment {
         mydatabase.execSQL("CREATE TABLE IF NOT EXISTS package(weight VARCHAR, packaging VARCHAR, dimensions VARCHAR, trackingNumber VARCHAR)");
 
 
+
+
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Vector<String> printMe = new Vector<String>();
                 System.out.println(weight.getText().toString());
 
                 PackageTracker.Package primePackage = new PackageTracker.Package(Integer.parseInt(weight.getText().toString()), packaging.getText().toString(), dimensions.getText().toString());
@@ -62,6 +71,7 @@ public class HomeFragment extends Fragment {
                 PackageTracker.endLocation = endingLoc.toString();
                 Thread packageTrack1 = new Thread(new PackageTracker());
                 packageTrack1.start();
+                //printMe = packageTrack1.shipPackage(primePackage);
 
                 try {
                     packageTrack1.join();
@@ -69,37 +79,18 @@ public class HomeFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                PackageTracker.shipPackage(primePackage);
+                //PackageTracker.shipPackage(primePackage);
 
                 PackageTracker.trackPackage(primePackage.getTrackingNumber());
 
                 TextView theTextView = root.findViewById(R.id.textView8);
                 Cursor result = mydatabase.rawQuery("SELECT location FROM location where location = 'DURHAM,NC'", null);
                 result.moveToFirst();
-                overall = result.getString(0);
-                //overall += "Click Registered Cunt" + i + "\n";
-                theTextView.setText(overall);
+
                 i++;
             }
         });
 
         return root;
-    }
-    private void addPackage() {
-
-        try {
-            SQLiteStatement stmt = mydatabase.compileStatement("SELECT * FROM Country WHERE code = ?");
-            stmt.bindString(1, "US");
-            stmt.execute();
-            String query = "INSERT INTO packages (vcTrackingNumber, vcDimensions, vcPackaging, intWeight)"
-                    + " values (?, ?, ?, ?)";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString (1, trackingNumber);
-            preparedStmt.setString (2, dimensions);
-            preparedStmt.setString   (3, packaging);
-            preparedStmt.setInt(4, weight);
-            preparedStmt.execute();
-        }
-        catch(Exception e) {System.out.println(e);}
     }
 }
