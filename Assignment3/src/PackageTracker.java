@@ -360,13 +360,12 @@ public class PackageTracker implements Runnable{
 	public static void main(String[] args) {
 		//When we bring a package to the post office, we need to specify 1. Weight 2. Packaging type 3. Dimensions
 		Package primePackage = new Package(5, "Box", "5x5x5");
-		Package diffPackage = new Package(10, "Circle", "5x5x5");
-
+		
 		//Then, a new thread is created to calculate the fastest path to the destination
 		Thread packageTrack1 = new Thread(new PackageTracker());
-		Thread packageTrack2 = new Thread(new PackageTracker());
+		
 		packageTrack1.start();
-		packageTrack2.start();
+		
 
 		
 		
@@ -376,11 +375,7 @@ public class PackageTracker implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		try {
-			packageTrack2.join();
-		}catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
 		
 		//Then we ship the package based on the path calculated by the thread
 		shipPackage(primePackage);
