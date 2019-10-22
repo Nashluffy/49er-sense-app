@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Control"></activity>
+        <activity android:name=".Energy"></activity>
+        <activity android:name=".Notifications" />
+        <activity android:name=".Appliances" />
+        <activity android:name=".Security" />
         <activity android:name=".Weather" />
         <activity android:name=".Dashboard" />
         <activity android:name=".UserRegistration" />

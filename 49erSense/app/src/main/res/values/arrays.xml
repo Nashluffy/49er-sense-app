@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="SecuritySystem">
+        <item>Disarmed</item>
+        <item>Armed Stay</item>
+        <item>Armed Away</item>
+    </string-array>
+    <string-array name="GarageDoors">
+        <item>Open</item>
+        <item>Closed</item>
+    </string-array>
+    <string-array name="Thermostats">
+        <item>Main Floor - Heat</item>
+        <item>Main Floor - Cool</item>
+        <item>Main Floor - Off</item>
+        <item>Main Floor - Fan Auto</item>
+        <item>Main Floor - Fan Off</item>
+        <item>Main Floor - Control Temp</item>
+        <item>Main Floor - Current Temp</item>
+        <item>Upstairs - Heat</item>
+        <item>Upstairs - Cool</item>
+        <item>Upstairs - Off</item>
+        <item>Upstairs - Fan Auto</item>
+        <item>Upstairs - Fan Off</item>
+        <item>Upstairs - Control Temp</item>
+        <item>Upstairs - Current Temp</item>
+    </string-array>
+    <string-array name="Lights">
+        <item>Main Floor - Location xxx On</item>
+        <item>Main Floor - Location xxx Off</item>
+        <item>Upstairs - Location xxx On</item>
+        <item>Upstairs - Location xxx Off</item>
+    </string-array>
+    <string-array name="MotionDetector">
+        <item>Main Floor - Active</item>
+        <item>Main Floor - Inactive</item>
+        <item>Upstairs - Active</item>
+        <item>Upstairs - Inactive</item>
+    </string-array>
+
+</resources>

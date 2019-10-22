@@ -37,6 +37,7 @@ public class UserRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_user_registration);
         dialog = new ProgressDialog(this);
 
+        getSupportActionBar().hide();
 
         //Declare EditText
         newFirstName = findViewById(R.id.FirstName);
