@@ -9,6 +9,7 @@ public class Constants {
     public static final String WEATHER_API_KEY = "ae2d88a96051226bd49105c46e7ce638";
     public static final String CURRENT_CITY = "Charlotte";
     public static final String localhostURL = "http://172.17.101.81/";
+    public static final String scheduleFilePath = "/home/mluffman/Code/IoT/49erSense/schedule.txt";
 
 
 

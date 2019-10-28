@@ -38,4 +38,10 @@
         <item>Upstairs - Inactive</item>
     </string-array>
 
+    <string-array name="Appliances">
+        <item>Washer</item>
+        <item>Dryer</item>
+        <item>Generic Appliance</item>
+    </string-array>
+
 </resources>

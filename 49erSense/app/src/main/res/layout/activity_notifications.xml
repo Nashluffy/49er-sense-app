@@ -15,6 +15,7 @@
         android:text="49er Sense"
         android:textSize="36sp"
         android:textStyle="bold"
+        app:fontFamily="casual"
         app:layout_constraintBottom_toTopOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

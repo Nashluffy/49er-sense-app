@@ -31,21 +31,6 @@
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginLeft="59dp"
-        android:layout_marginTop="39dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginRight="59dp"
-        android:layout_marginBottom="37dp"
-        app:layout_constraintBottom_toTopOf="@+id/switch1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="222dp"
@@ -62,42 +47,45 @@
         android:id="@+id/weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginBottom="24dp"
         android:onClick="goWeather"
         android:text="Weather"
-        app:layout_constraintBaseline_toBaselineOf="@+id/switch1"
-        app:layout_constraintEnd_toStartOf="@+id/notifications" />
+        app:layout_constraintBottom_toTopOf="@+id/appliances"
+        app:layout_constraintStart_toStartOf="@+id/webView" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/videoSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
-        android:layout_marginBottom="35dp"
         android:text="Video"
-        app:layout_constraintBottom_toTopOf="@+id/notifications"
+        app:layout_constraintBaseline_toBaselineOf="@+id/button6"
         app:layout_constraintEnd_toStartOf="@+id/button6" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginRight="41dp"
         android:onClick="goControl"
-        android:text="Control"
-        app:layout_constraintBaseline_toBaselineOf="@+id/switch1"
-        app:layout_constraintEnd_toEndOf="@+id/videoView" />
+        android:text="Security"
+        app:layout_constraintEnd_toEndOf="@+id/webView"
+        app:layout_constraintTop_toBottomOf="@+id/webView" />
 
     <Button
         android:id="@+id/appliances"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="137dp"
-        android:text="Appliances"
         android:onClick="goAppliances"
+        android:text="Appliances"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/notifications"
         app:layout_constraintStart_toStartOf="parent" />
@@ -106,11 +94,11 @@
         android:id="@+id/notifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginRight="6dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="9dp"
-        android:text="Notifications"
         android:onClick="goNotifications"
+        android:text="Notifications"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/Energy"
         app:layout_constraintStart_toEndOf="@+id/appliances" />
@@ -122,10 +110,22 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="9dp"
-        android:text="Energy"
         android:onClick="goEnergy"
+        android:text="Energy"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/notifications" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="374dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/weather"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

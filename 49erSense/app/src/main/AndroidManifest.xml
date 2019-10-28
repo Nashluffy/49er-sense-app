@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Energy"></activity>
+        <activity android:name=".Schedule"></activity>
+        <activity android:name=".Energy" />
         <activity android:name=".Notifications" />
         <activity android:name=".Appliances" />
         <activity android:name=".Security" />
