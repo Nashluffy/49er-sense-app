@@ -6,4 +6,348 @@
     android:layout_height="match_parent"
     tools:context=".Schedule">
 
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="17dp"
+        android:text="49er Sense"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:fontFamily="casual"
+        app:layout_constraintBottom_toTopOf="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="70dp"
+        android:text="Schedule"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="409dp"
+        android:layout_height="243dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="276dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"> <!-- collapse the first column of the table row-->
+
+
+        <!--First Row-->
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="Appliance"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Start Date"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Start Time"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:text="Duration"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+        </TableRow>
+        <!--Second Row-->
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appliance1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:layout_column="0"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <EditText
+                android:id="@+id/startdate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:hint="MM/DD/YY"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/starttime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:hint="HH:MM"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/duration1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:hint="MM"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+        </TableRow>
+
+        <!--Third Row-->
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appliance2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_column="0"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <EditText
+                android:id="@+id/startdate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/starttime2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/duration2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+        </TableRow>
+
+
+        <!--Fourth Row-->
+        <TableRow
+            android:id="@+id/row4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appliance3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_column="0"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <EditText
+                android:id="@+id/startdate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/starttime3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/duration3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+        </TableRow>
+
+
+        <!--Fifth Row-->
+        <TableRow
+            android:id="@+id/row5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appliance4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_column="0"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <EditText
+                android:id="@+id/startdate4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/starttime4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/duration4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+        </TableRow>
+
+
+        <!--Sixth Row-->
+        <TableRow
+            android:id="@+id/row6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/appliance5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_column="0"
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+            <EditText
+                android:id="@+id/startdate5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/starttime5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <EditText
+                android:id="@+id/duration5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+
+                android:textSize="18sp"
+                tools:layout_editor_absoluteX="157dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+
+        </TableRow>
+
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
