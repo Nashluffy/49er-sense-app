@@ -1,6 +1,6 @@
 package com.example.a49ersense.ExampleAppliances;
 
-public class ExampleDryer {
+public class ExampleDryer extends Thread{
     private static int dryerPower;
     private static int dryerTimerMins;
     private static int dryerPowerPerMinute;

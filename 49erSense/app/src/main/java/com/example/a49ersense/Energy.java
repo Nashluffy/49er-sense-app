@@ -37,7 +37,6 @@ public class Energy extends AppCompatActivity {
                     exampleApplianceTimer.setText("Current Run Time: " + ew.getCurrentRunTime());
 
                     System.out.println(ew.getWasherPower());
-                    System.out.println( "This is the text: "+ exampleApplianceEnergy.getText().toString());
                     handler.postDelayed(this, 500); // set time here to refresh textView
                 }
                 else if(appliance.getSelectedItem().equals(("Dryer"))){

@@ -74,11 +74,14 @@ public class Appliances extends AppCompatActivity {
     }
 
     public void startDryer(View view){
+
         ExampleDryer ed  = new ExampleDryer(125, 60);
+        ed.start();
     }
 
     public void startGeneric(View view){
         ExampleGeneric eg = new ExampleGeneric("Slow-Cooker", 15, 15);
+        eg.start();
     }
 
     public void startSchedule(View view){

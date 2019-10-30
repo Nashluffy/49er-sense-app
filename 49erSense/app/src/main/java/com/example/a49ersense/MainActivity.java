@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         loginUsername = findViewById(R.id.loginUsername);
         loginPassword = findViewById(R.id.loginPassword);
+        ScheduleThread mainSchedule = new ScheduleThread();
+        mainSchedule.start();
     }
 
     //On login button click

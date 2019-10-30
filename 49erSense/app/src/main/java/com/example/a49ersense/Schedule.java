@@ -36,9 +36,12 @@ import static java.lang.Thread.sleep;
 public class Schedule extends AppCompatActivity {
     static String path = scheduleFilePath;
     static boolean scheduleEmpty = false;
-    Vector<String[]> currentSchedule = new Vector<String[]>();
+    static Vector<String[]> currentSchedule = new Vector<String[]>();
     Vector<EditText> listMe = new Vector<EditText>();
     String beforeText;
+
+    public static Vector<String[]> getCurrentSchedule(){return currentSchedule;}
+
 
     /*
     * The general idea of the schedule is to read and write from a file stored on the clients computer
@@ -91,6 +94,8 @@ public class Schedule extends AppCompatActivity {
                         try {
                             writeToFile(appliance1.getText().toString().trim() + "," + startDate1.getText().toString().trim() + "," +
                                     startTime1.getText().toString().trim() + "," + duration1.getText().toString().trim(), getApplicationContext());
+                            System.out.println("Successfully wrote new line");
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -123,6 +128,8 @@ public class Schedule extends AppCompatActivity {
                         try {
                             writeToFile(appliance2.getText().toString().trim() + "," + startDate2.getText().toString().trim() + "," +
                                     startTime2.getText().toString().trim() + "," + duration2.getText().toString().trim(), getApplicationContext());
+                            System.out.println("Successfully wrote new line");
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -155,6 +162,7 @@ public class Schedule extends AppCompatActivity {
                         try {
                             writeToFile(appliance3.getText().toString().trim() + "," + startDate3.getText().toString().trim() + "," +
                                     startTime3.getText().toString().trim() + "," + duration3.getText().toString().trim(), getApplicationContext());
+                            System.out.println("Successfully wrote new line");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -215,10 +223,9 @@ public class Schedule extends AppCompatActivity {
             File file = this.getFileStreamPath("schedule.txt");
             file.delete();
             if(file == null || !file.exists()) {
-                writeToFile("Washer,10/29/19,11:45,60\n", this);
-                writeToFile("Dryer,10/29/19,11:50,60\n", this);
-                writeToFile("Washer,10/30/19,15:20,30\n", this);
-                writeToFile("Dryer,10/30/19,19:10,60\n", this);
+                writeToFile("Washer,10/29/2019,11:45,60\n", this);
+                writeToFile("Washer,10/30/2019,15:20,30\n", this);
+                writeToFile("Dryer,10/30/2019,20:08,60\n", this);
             }
         } catch (IOException e) {
             e.printStackTrace();
