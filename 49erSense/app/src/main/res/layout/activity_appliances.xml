@@ -10,33 +10,36 @@
         android:id="@+id/washerStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:onClick="startWasher"
+        android:onClick="startAppliance"
         android:text="Start Appliance"
         app:layout_constraintBottom_toTopOf="@+id/washerStop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appliancePowerPMin" />
 
     <Button
         android:id="@+id/washerStop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:text="Stop Appliance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/washerStart" />
 
     <Button
         android:id="@+id/button9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:text="Schedule"
         android:onClick="startSchedule"
-        app:layout_constraintBottom_toTopOf="@+id/appliance"
+        android:text="Schedule"
+        app:layout_constraintBottom_toTopOf="@+id/selectedAppliance"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/textView18"
@@ -48,6 +51,7 @@
         app:fontFamily="casual"
         app:layout_constraintBottom_toTopOf="@+id/textView19"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,45 +59,49 @@
         android:id="@+id/textView19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:text="Appliances"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <Spinner
-        android:id="@+id/appliance"
+        android:id="@+id/selectedAppliance"
         android:layout_width="319dp"
         android:layout_height="26dp"
-        android:layout_marginBottom="36dp"
         android:entries="@array/Appliances"
         app:layout_constraintBottom_toTopOf="@+id/applianceName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button9" />
 
     <EditText
         android:id="@+id/applianceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
         android:ems="10"
         android:hint="Appliance Name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/appliancePowerPMin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selectedAppliance" />
 
     <EditText
         android:id="@+id/appliancePowerPMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
         android:ems="10"
         android:hint="Appliance Power / Min"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/washerStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/applianceName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

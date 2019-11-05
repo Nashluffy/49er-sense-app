@@ -26,22 +26,35 @@
         <item>Upstairs - Current Temp</item>
     </string-array>
     <string-array name="Lights">
-        <item>Main Floor - Location xxx On</item>
-        <item>Main Floor - Location xxx Off</item>
-        <item>Upstairs - Location xxx On</item>
-        <item>Upstairs - Location xxx Off</item>
+        <item>Main Floor Lights - On</item>
+        <item>Main Floor Lights - Off</item>
+        <item>Upstairs Lights - On</item>
+        <item>Upstairs Lights - Off</item>
     </string-array>
     <string-array name="MotionDetector">
         <item>Main Floor - Active</item>
         <item>Main Floor - Inactive</item>
-        <item>Upstairs - Active</item>
-        <item>Upstairs - Inactive</item>
     </string-array>
 
     <string-array name="Appliances">
         <item>Washer</item>
         <item>Dryer</item>
         <item>Generic Appliance</item>
+    </string-array>
+
+    <string-array name="Locks">
+        <item>All Doors - Locked</item>
+        <item>All Doors - Unlocked</item>
+    </string-array>
+
+    <string-array name="Windows">
+        <item>Open</item>
+        <item>Closed</item>
+    </string-array>
+
+    <string-array name="Sensors">
+        <item>On</item>
+        <item>Off</item>
     </string-array>
 
 </resources>

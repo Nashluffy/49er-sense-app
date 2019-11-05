@@ -31,6 +31,9 @@ import java.util.Vector;
 
 import static android.content.Context.*;
 import static com.example.a49ersense.Constants.scheduleFilePath;
+import static com.example.a49ersense.FileIO.writeToFile;
+import static com.example.a49ersense.FileIO.readFromFile;
+import static com.example.a49ersense.FileIO.deleteEntry;
 import static java.lang.Thread.sleep;
 
 public class Schedule extends AppCompatActivity {
@@ -93,7 +96,7 @@ public class Schedule extends AppCompatActivity {
                     if (duration1.getText().length() != 0) {
                         try {
                             writeToFile(appliance1.getText().toString().trim() + "," + startDate1.getText().toString().trim() + "," +
-                                    startTime1.getText().toString().trim() + "," + duration1.getText().toString().trim(), getApplicationContext());
+                                    startTime1.getText().toString().trim() + "," + duration1.getText().toString().trim(), getApplicationContext(), "schedule.txt");
                             System.out.println("Successfully wrote new line");
 
                         } catch (IOException e) {
@@ -107,10 +110,10 @@ public class Schedule extends AppCompatActivity {
                         } else {
                             deleteMe = startTime1.getText().toString();
                         }
-                        deleteEntry(deleteMe, getApplicationContext());
+                        deleteEntry(deleteMe, getApplicationContext(), "schedule.txt");
                         clearTableView();
                         currentSchedule.clear();
-                        currentSchedule = readFromFile(getApplicationContext());
+                        currentSchedule = readFromFile(getApplicationContext(), "schedule.txt");
                         setTableView();
                     }
                 }
@@ -127,7 +130,7 @@ public class Schedule extends AppCompatActivity {
                     if (duration2.getText().length() != 0) {
                         try {
                             writeToFile(appliance2.getText().toString().trim() + "," + startDate2.getText().toString().trim() + "," +
-                                    startTime2.getText().toString().trim() + "," + duration2.getText().toString().trim(), getApplicationContext());
+                                    startTime2.getText().toString().trim() + "," + duration2.getText().toString().trim(), getApplicationContext(), "schedule.txt");
                             System.out.println("Successfully wrote new line");
 
                         } catch (IOException e) {
@@ -141,10 +144,10 @@ public class Schedule extends AppCompatActivity {
                         } else {
                             deleteMe = startTime2.getText().toString();
                         }
-                        deleteEntry(deleteMe, getApplicationContext());
+                        deleteEntry(deleteMe, getApplicationContext(), "schedule.txt");
                         clearTableView();
                         currentSchedule.clear();
-                        currentSchedule = readFromFile(getApplicationContext());
+                        currentSchedule = readFromFile(getApplicationContext(), "schedule.txt");
                         setTableView();
                     }
                 }
@@ -161,7 +164,7 @@ public class Schedule extends AppCompatActivity {
                     if (duration3.getText().length() != 0) {
                         try {
                             writeToFile(appliance3.getText().toString().trim() + "," + startDate3.getText().toString().trim() + "," +
-                                    startTime3.getText().toString().trim() + "," + duration3.getText().toString().trim(), getApplicationContext());
+                                    startTime3.getText().toString().trim() + "," + duration3.getText().toString().trim(), getApplicationContext(), "schedule.txt");
                             System.out.println("Successfully wrote new line");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -174,10 +177,10 @@ public class Schedule extends AppCompatActivity {
                         } else {
                             deleteMe = startTime3.getText().toString();
                         }
-                        deleteEntry(deleteMe, getApplicationContext());
+                        deleteEntry(deleteMe, getApplicationContext(), "schedule.txt");
                         clearTableView();
                         currentSchedule.clear();
-                        currentSchedule = readFromFile(getApplicationContext());
+                        currentSchedule = readFromFile(getApplicationContext(), "schedule.txt");
                         setTableView();
                     }
                 }
@@ -195,7 +198,7 @@ public class Schedule extends AppCompatActivity {
                     if (duration4.getText().length() != 0) {
                         try {
                             writeToFile(appliance4.getText().toString().trim() + "," + startDate4.getText().toString().trim() + "," +
-                                    startTime4.getText().toString().trim() + "," + duration4.getText().toString().trim(), getApplicationContext());
+                                    startTime4.getText().toString().trim() + "," + duration4.getText().toString().trim(), getApplicationContext(), "schedule.txt");
                             System.out.println("Successfully wrote new line");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -208,10 +211,10 @@ public class Schedule extends AppCompatActivity {
                         } else {
                             deleteMe = startTime4.getText().toString();
                         }
-                        deleteEntry(deleteMe, getApplicationContext());
+                        deleteEntry(deleteMe, getApplicationContext(), "schedule.txt");
                         clearTableView();
                         currentSchedule.clear();
-                        currentSchedule = readFromFile(getApplicationContext());
+                        currentSchedule = readFromFile(getApplicationContext(), "schedule.txt");
                         setTableView();
                     }
                 }
@@ -223,103 +226,19 @@ public class Schedule extends AppCompatActivity {
             File file = this.getFileStreamPath("schedule.txt");
             file.delete();
             if(file == null || !file.exists()) {
-                writeToFile("Washer,10/29/2019,11:45,60\n", this);
-                writeToFile("Washer,10/30/2019,15:20,30\n", this);
-                writeToFile("Dryer,10/30/2019,20:08,60\n", this);
+                writeToFile("Washer,10/29/2019,11:45,60\n", this, "schedule.txt");
+                writeToFile("Washer,10/30/2019,15:20,30\n", this, "schedule.txt");
+                writeToFile("Dryer,10/30/2019,20:08,60\n", this, "schedule.txt");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         currentSchedule.clear();
-        currentSchedule = readFromFile(this);
+        currentSchedule = readFromFile(this, "schedule.txt");
         setTableView();
 
 
 
-    }
-
-    public static void writeToFile(String data, Context context) throws IOException
-    {
-
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("schedule.txt", MODE_APPEND));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
-        }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    private void deleteEntry(String lineToRemove,Context context) {
-
-        try {
-            //Setup the input (old schedule file) and new file (tempSchedule)
-            InputStream inputStream = context.openFileInput("schedule.txt");
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("tempSchedule.txt", MODE_APPEND));
-            if (inputStream != null){
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader reader = new BufferedReader(inputStreamReader);
-                BufferedWriter writer = new BufferedWriter(outputStreamWriter);
-
-                String currentLine;
-
-                while((currentLine = reader.readLine()) != null) {
-                    String trimmedLine = currentLine.trim();
-                    if(trimmedLine.contains(lineToRemove)){
-                    }else{
-                        writer.write(trimmedLine + "\n");
-                    }
-
-                }
-                writer.close();
-                reader.close();
-                File from = new File(getFilesDir(), "tempSchedule.txt");
-                File to = new File(getFilesDir(),"schedule.txt");
-                to.delete();
-                if(from.exists()){
-                    from.renameTo(to);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-    private Vector<String[]> readFromFile(Context context) {
-
-        Vector<String[]> scheduleVec = new Vector<String[]>();
-        try {
-            InputStream inputStream = context.openFileInput("schedule.txt");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-                System.out.println("Printing out current schedule.txt");
-                scheduleVec.clear();
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    System.out.println(receiveString);
-                    String[] fourColumns = receiveString.split(",");
-                    scheduleVec.add(fourColumns);
-                }
-
-                inputStream.close();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return scheduleVec;
     }
 
     private void setTableView(){

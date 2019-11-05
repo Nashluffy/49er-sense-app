@@ -3,26 +3,26 @@ package com.example.a49ersense.ExampleSecurity;
 import java.util.Random;
 
 public class ExampleRPi extends Thread {
-    enum SecuritySystem{Disarmed, ArmedStay, ArmedAway}
-    enum GarageDoors{Open, Closed}
-    enum Fan{Heat, Cool, Off}
-    enum Lights{On, Off}
-    enum Locks{Locked, Unlocked}
-    enum Windows{Open, Closed}
-    enum Sensors{On, Off}
-    enum MotionDetector{Active, Inactive}
+    public enum SecuritySystem{Disarmed, ArmedStay, ArmedAway}
+    public enum GarageDoors{Open, Closed}
+    public enum Fan{Heat, Cool, Off}
+    public enum Lights{On, Off}
+    public enum Locks{Locked, Unlocked}
+    public enum Windows{Open, Closed}
+    public enum Sensors{On, Off}
+    public enum MotionDetector{Active, Inactive}
 
     private static SecuritySystem houseSystem;
     private static GarageDoors twoCarGarage,oneCarGarage;
     private static Fan mainFloorFan, upstairsFloorFan;
     private static int mainFloorControlTemp,mainFloorCurrentTemp, upstairsFloorControlTemp, upstairsFloorCurrentTemp;
-    private static Lights mainFloorLights,upstairsFloorLights;
-    private static Locks frontDoor, backDoor, mainDoor;
+    private static Lights mainFloorLights;
+    private static Locks mainLocks;
     private static Windows mainFloorWindows;
-    private static Sensors upstairsFloorSensors, mainFloorSensors;
-    private static MotionDetector mainFloorMotionDetector, upstairsFloorMotionDetector;
+    private static Sensors mainSensors;
+    private static MotionDetector mainFloorMotionDetector;
 
-
+    public static boolean houseSystemTripped = false,mainFloorTripped = false, mainSensorTripped = false, mainFloorMotionTripped = false, upstairMotionSensorTripped = false;
 
     public void run(){
         //Let's initialize some starting conditions
@@ -34,40 +34,106 @@ public class ExampleRPi extends Thread {
         setMainFloorControlTemp(72);
         setUpstairsFloorControlTemp(72);
         setMainFloorLights(Lights.On);
-        setUpstairsFloorLights(Lights.On);
-        setFrontDoor(Locks.Locked);
-        setBackDoor(Locks.Locked);
-        setMainDoor(Locks.Locked);
+        setMainLocks(Locks.Locked);
         setMainFloorWindows(Windows.Closed);
-        setUpstairsFloorSensors(Sensors.On);
-        setMainFloorSensors(Sensors.On);
+        setMainSensors(Sensors.On);
         setMainFloorMotionDetector(MotionDetector.Active);
-        setUpstairsFloorMotionDetector(MotionDetector.Active);
 
     }
 
-    public void setMainFloorControlTemp(int n){
+    public static boolean getHouseSystemTripped(){
+        return houseSystemTripped;
+    }
+
+    public static void setHouseSystemTripped(){
+        if((getHouseSystem().equals(SecuritySystem.ArmedAway) || getHouseSystem().equals(SecuritySystem.ArmedStay))){
+            houseSystemTripped = true;
+        }
+        else{
+            houseSystemTripped = false;
+        }
+    }
+
+    public static boolean getMainFloorMotionTripped(){
+        return mainFloorMotionTripped;
+    }
+
+    public static void setMainFloorMotionTripped(){
+        if(getMainFloorMotionDetector().equals(MotionDetector.Active)){
+            mainFloorMotionTripped = true;
+        }
+        else{
+            mainFloorMotionTripped = false;
+        }
+    }
+
+
+    public static boolean getMainSensorTripped(){
+        return mainSensorTripped;
+    }
+
+    public static void setMainSensorTripped(){
+        if(getMainSensors().equals(Sensors.On)){
+            mainSensorTripped = true;
+        }
+        else{
+            mainSensorTripped = false;
+        }
+    }
+
+    public static boolean getMainFloorTripped(){
+        return houseSystemTripped;
+    }
+
+    public static void setMainFloorTripped(){
+        if(getMainLocks().equals(Locks.Locked)){
+            mainFloorTripped = true;
+        }
+        else{
+            mainFloorTripped = false;
+        }
+    }
+
+    public static void setMainFloorControlTemp(int n){
         Random rn = new Random();
-        this.mainFloorControlTemp = n;
-        this.mainFloorCurrentTemp = rn.nextInt( (mainFloorControlTemp + 3) - (mainFloorControlTemp - 3) + 1) + (mainFloorControlTemp - 3);
+        mainFloorControlTemp = n;
+        mainFloorCurrentTemp = rn.nextInt( (mainFloorControlTemp + 3) - (mainFloorControlTemp - 3) + 1) + (mainFloorControlTemp - 3);
     }
 
-    public void setUpstairsFloorControlTemp(int n){
+    public static void setUpstairsFloorControlTemp(int n){
         Random rn = new Random();
-        this.upstairsFloorControlTemp = n;
-        this.upstairsFloorCurrentTemp = rn.nextInt( (upstairsFloorControlTemp+ 3) - (upstairsFloorControlTemp- 3) + 1) + (upstairsFloorControlTemp- 3);
+        upstairsFloorControlTemp = n;
+        upstairsFloorCurrentTemp = rn.nextInt( (upstairsFloorControlTemp+ 3) - (upstairsFloorControlTemp- 3) + 1) + (upstairsFloorControlTemp- 3);
     }
 
-    public static SecuritySystem getHouseSystem() {
-        return houseSystem;
+    public static String getHouseSystem() {
+        String returnValue;
+        if (houseSystem == SecuritySystem.ArmedAway){
+            returnValue = "ArmedAway";
+        }
+        else if(houseSystem == SecuritySystem.ArmedStay){
+            returnValue = "ArmedStay";
+        }
+        else{
+            returnValue = "Disarmed";
+        }
+
+        return returnValue;
     }
 
     public static GarageDoors getTwoCarGarage() {
         return twoCarGarage;
     }
 
-    public static GarageDoors getOneCarGarage() {
-        return oneCarGarage;
+    public static String getOneCarGarage() {
+        String returnValue;
+        if(ExampleRPi.oneCarGarage == GarageDoors.Open){
+            returnValue = "Open";
+        }
+        else{
+            returnValue = "Closed";
+        }
+        return returnValue;
     }
 
     public static Fan getMainFloorFan() {
@@ -94,45 +160,69 @@ public class ExampleRPi extends Thread {
         return upstairsFloorCurrentTemp;
     }
 
-    public static Lights getMainFloorLights() {
-        return mainFloorLights;
+    public static String getMainFloorLights() {
+        String returnValue;
+        if(ExampleRPi.mainFloorLights == Lights.Off){
+            returnValue = "Main Floor Lights - Off";
+        }
+        else{
+            returnValue = "Main Floor Lights - On";
+        }
+        return returnValue;
     }
 
-    public static Lights getUpstairsFloorLights() {
-        return upstairsFloorLights;
+    public static String getUpstairsFloorLights() {
+        String returnValue = "";
+
+        return returnValue;
     }
 
-    public static Locks getFrontDoor() {
-        return frontDoor;
+    public static String getMainLocks() {
+        String returnValue;
+        if (ExampleRPi.mainLocks == Locks.Locked) {
+            returnValue = "All Doors - Locked";
+        }
+        else{
+            returnValue = "All Doors - Unlocked";
+        }
+        return returnValue;
     }
 
-    public static Locks getBackDoor() {
-        return backDoor;
+    public static String getMainFloorWindows() {
+        String returnValue;
+        if(ExampleRPi.mainFloorWindows.equals(ExampleRPi.Windows.Closed)){
+            returnValue = "Closed";
+        }
+        else{
+            returnValue = "Open";
+        }
+        return returnValue;
     }
 
-    public static Locks getMainDoor() {
-        return mainDoor;
+    public static String getMainSensors() {
+        String returnValue;
+        if(ExampleRPi.mainSensors.equals(Sensors.On)){
+            returnValue = "On";
+        }
+        else{
+            returnValue = "Off";
+        }
+        return returnValue;
     }
 
-    public static Windows getMainFloorWindows() {
-        return mainFloorWindows;
+
+
+    public static String getMainFloorMotionDetector() {
+        String returnValue;
+        if(ExampleRPi.mainFloorMotionDetector.equals(MotionDetector.Active)){
+            returnValue = "On";
+        }
+        else{
+            returnValue = "Off";
+        }
+        return returnValue;
     }
 
-    public static Sensors getUpstairsFloorSensors() {
-        return upstairsFloorSensors;
-    }
-
-    public static Sensors getMainFloorSensors() {
-        return mainFloorSensors;
-    }
-
-    public static MotionDetector getMainFloorMotionDetector() {
-        return mainFloorMotionDetector;
-    }
-
-    public static MotionDetector getUpstairsFloorMotionDetector() {
-        return upstairsFloorMotionDetector;
-    }
 
     public static void setHouseSystem(SecuritySystem houseSystem) {
         ExampleRPi.houseSystem = houseSystem;
@@ -158,40 +248,22 @@ public class ExampleRPi extends Thread {
         ExampleRPi.mainFloorLights = mainFloorLights;
     }
 
-    public static void setUpstairsFloorLights(Lights upstairsFloorLights) {
-        ExampleRPi.upstairsFloorLights = upstairsFloorLights;
-    }
 
-    public static void setFrontDoor(Locks frontDoor) {
-        ExampleRPi.frontDoor = frontDoor;
-    }
 
-    public static void setBackDoor(Locks backDoor) {
-        ExampleRPi.backDoor = backDoor;
-    }
-
-    public static void setMainDoor(Locks mainDoor) {
-        ExampleRPi.mainDoor = mainDoor;
+    public static void setMainLocks(Locks mainLocks) {
+        ExampleRPi.mainLocks = mainLocks;
     }
 
     public static void setMainFloorWindows(Windows mainFloorWindows) {
         ExampleRPi.mainFloorWindows = mainFloorWindows;
     }
 
-    public static void setUpstairsFloorSensors(Sensors upstairsFloorSensors) {
-        ExampleRPi.upstairsFloorSensors = upstairsFloorSensors;
-    }
-
-    public static void setMainFloorSensors(Sensors mainFloorSensors) {
-        ExampleRPi.mainFloorSensors = mainFloorSensors;
+    public static void setMainSensors(Sensors mainSensors) {
+        ExampleRPi.mainSensors = mainSensors;
     }
 
     public static void setMainFloorMotionDetector(MotionDetector mainFloorMotionDetector) {
         ExampleRPi.mainFloorMotionDetector = mainFloorMotionDetector;
-    }
-
-    public static void setUpstairsFloorMotionDetector(MotionDetector upstairsFloorMotionDetector) {
-        ExampleRPi.upstairsFloorMotionDetector = upstairsFloorMotionDetector;
     }
 
 }

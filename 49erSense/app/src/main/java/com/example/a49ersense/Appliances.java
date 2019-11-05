@@ -25,7 +25,7 @@ public class Appliances extends AppCompatActivity {
         final ExampleWasher ew = new ExampleWasher();
         final ExampleDryer ed = new ExampleDryer();
 
-        final Spinner appliance = findViewById(R.id.appliance);
+        final Spinner appliance = findViewById(R.id.selectedAppliance);
 
         final Handler handler=new Handler();
         handler.post(new Runnable(){
@@ -68,20 +68,20 @@ public class Appliances extends AppCompatActivity {
 
     }
 
-    public void startWasher(View view){
-        ExampleWasher ew = new ExampleWasher(60, 35);
-        ew.start();
-    }
-
-    public void startDryer(View view){
-
-        ExampleDryer ed  = new ExampleDryer(125, 60);
-        ed.start();
-    }
-
-    public void startGeneric(View view){
-        ExampleGeneric eg = new ExampleGeneric("Slow-Cooker", 15, 15);
-        eg.start();
+    public void startAppliance(View view){
+        Spinner applianceSelection = findViewById(R.id.selectedAppliance);
+        if (applianceSelection.getSelectedItem().toString().equals("Washer")){
+            ExampleWasher ew = new ExampleWasher(60, 35);
+            ew.start();
+        }
+        else if (applianceSelection.getSelectedItem().toString().equals("Dryer")){
+            ExampleDryer ed  = new ExampleDryer(125, 60);
+            ed.start();
+        }
+        else{
+            ExampleGeneric eg = new ExampleGeneric("Slow-Cooker", 15, 15);
+            eg.start();
+        }
     }
 
     public void startSchedule(View view){
