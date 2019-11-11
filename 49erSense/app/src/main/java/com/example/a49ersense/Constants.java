@@ -19,5 +19,7 @@ public class Constants {
     public static String URL_UPDATE_SENSORS = localhostURL + "updateSecurity.php";
     public static String URL_READ_SENSORS = localhostURL + "readSecurity.php";
 
+    public static String URL_UPDATE_SCHEDULE = localhostURL + "updateSchedule.php";
+
 
 }
