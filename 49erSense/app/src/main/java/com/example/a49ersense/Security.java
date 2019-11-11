@@ -49,6 +49,7 @@ public class Security extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security);
         getSupportActionBar().hide();
+        readInitialValues();
 
         final Spinner securitySystem = findViewById(R.id.securitySystem);
         final Spinner garageDoors = findViewById(R.id.garageDoors);
@@ -207,7 +208,54 @@ public class Security extends AppCompatActivity {
         });
     }
 
-    
+    public void readInitialValues(){
+        Vector<Map<String,String>> allValues = new Vector<Map<String,String>>();
+        allValues.add(readFromDB("HouseSystem"));
+        allValues.add(readFromDB("Locks"));
+        allValues.add(readFromDB("GarageDoors"));
+        allValues.add(readFromDB("Lights"));
+        allValues.add(readFromDB("Sensors"));
+        allValues.add(readFromDB("Windows"));
+    }
+
+
+    public Map<String, String> readFromDB(final String sensorName){
+        final Map<String, String> returnMap = new HashMap<String, String>();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_READ_SENSORS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String turnToMap;
+                        System.out.println(("Response is: " + response.toString()));
+                        turnToMap = response.substring(2);
+                        turnToMap = response.substring(2, turnToMap.length());
+                        String[] initialSplit = turnToMap.split(",");
+                        for (int i =0; i < initialSplit.length; i++){
+                            String[] KVP = initialSplit[i].split(":");
+                            KVP[0].replace("\"\"", "");
+                            KVP[1].replace("\"\"", "");
+                            returnMap.put(KVP[0], KVP[1]);
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("That didn't work!");
+                System.out.println(error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("SensorName", sensorName);
+                return params;
+            }
+        };
+        queue.add(stringRequest);
+        return returnMap;
+    }
 
 
     public void writeToDB(final String sensorName, final String sensorState, final String sensorTripped) {
@@ -239,6 +287,10 @@ public class Security extends AppCompatActivity {
 
 
         queue.add(stringRequest);
+
+    }
+
+    private void testSystem(View view){
 
     }
 
