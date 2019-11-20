@@ -43,6 +43,8 @@ public class Security extends AppCompatActivity {
     enum Windows{Open, Closed}
     enum Sensors{On, Off}
     enum MotionDetector{Active, Inactive}
+    public static Vector<Map<String,String>> allValues = new Vector<Map<String,String>>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +61,15 @@ public class Security extends AppCompatActivity {
         final Spinner sensors = findViewById(R.id.sensors);
         final Spinner motionDetector = findViewById(R.id.motionDetector);
 
+        securitySystem.setSelection(getIndex(securitySystem, allValues.get(0).get("HouseSystem")));
+        garageDoors.setSelection(getIndex(garageDoors, allValues.get(2).get("GarageDoors")));
 
         securitySystem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = securitySystem.getSelectedItem().toString().trim();
-                if(sensorState.equals("Armed Stay")){
-                    ExampleRPi.setHouseSystem(ExampleRPi.SecuritySystem.ArmedStay);
-                }
-                else if(sensorState.equals("Armed Away")){
-                    ExampleRPi.setHouseSystem(ExampleRPi.SecuritySystem.ArmedAway);
-                }
-                else{
-                    ExampleRPi.setHouseSystem(ExampleRPi.SecuritySystem.Disarmed);
-                }
                 System.out.println("Current state: " + ExampleRPi.getHouseSystem());
-                writeToDB("HouseSystem", ExampleRPi.getHouseSystem(), valueOf(ExampleRPi.houseSystemTripped));
+                writeToDB("HouseSystem", sensorState, "false");
             }
 
             @Override
@@ -89,14 +84,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = garageDoors.getSelectedItem().toString().trim();
-                if(sensorState.equals("Open")){
-                    ExampleRPi.setOneCarGarage(ExampleRPi.GarageDoors.Open);
-                }
-                else{
-                    ExampleRPi.setOneCarGarage(ExampleRPi.GarageDoors.Closed);
-                }
-                System.out.println("Current state: " + ExampleRPi.getOneCarGarage());
-                writeToDB("GarageDoors" , ExampleRPi.getOneCarGarage(), "null");
+                writeToDB("GarageDoors" , sensorState, "null");
             }
 
             @Override
@@ -112,13 +100,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = lights.getSelectedItem().toString().trim();
-                if(sensorState.equals("Main Floor Lights - On")){
-                    ExampleRPi.setMainFloorLights(ExampleRPi.Lights.On);
-                }
-                else{
-                    ExampleRPi.setMainFloorLights(ExampleRPi.Lights.Off);
-                }
-                writeToDB("Lights" , ExampleRPi.getMainFloorLights(), "null");
+                writeToDB("Lights" , sensorState, "null");
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -131,13 +113,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = locks.getSelectedItem().toString().trim();
-                if(sensorState.equals("All Doors - Locked")){
-                    ExampleRPi.setMainLocks(ExampleRPi.Locks.Locked);
-                }
-                else{
-                    ExampleRPi.setMainLocks(ExampleRPi.Locks.Unlocked);
-                }
-                writeToDB("Locks", ExampleRPi.getMainLocks(), "false");
+                writeToDB("Locks", sensorState, "false");
             }
 
             @Override
@@ -151,13 +127,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = doorWindow.getSelectedItem().toString().trim();
-                if(sensorState.equals("Open")){
-                    ExampleRPi.setMainFloorWindows(ExampleRPi.Windows.Open);
-                }
-                else{
-                    ExampleRPi.setMainFloorWindows(ExampleRPi.Windows.Closed);
-                }
-                writeToDB("Windows", ExampleRPi.getMainFloorWindows(), "false");
+                writeToDB("Windows", sensorState, "false");
             }
 
             @Override
@@ -171,13 +141,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = sensors.getSelectedItem().toString().trim();
-                if(sensorState.equals("On")){
-                    ExampleRPi.setMainSensors(ExampleRPi.Sensors.On);
-                }
-                else{
-                    ExampleRPi.setMainSensors(ExampleRPi.Sensors.Off);
-                }
-                writeToDB("Sensors", ExampleRPi.getMainSensors(), "false");
+                writeToDB("Sensors", sensorState, "false");
             }
 
             @Override
@@ -191,13 +155,7 @@ public class Security extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String sensorState = motionDetector.getSelectedItem().toString().trim();
-                if(sensorState.equals("On")){
-                    ExampleRPi.setMainFloorMotionDetector(ExampleRPi.MotionDetector.Active);
-                }
-                else{
-                    ExampleRPi.setMainFloorMotionDetector(ExampleRPi.MotionDetector.Inactive);
-                }
-                writeToDB("MotionDetector", ExampleRPi.getMainFloorMotionDetector(), "false");
+                writeToDB("MotionDetector", sensorState, "false");
             }
 
             @Override
@@ -209,13 +167,13 @@ public class Security extends AppCompatActivity {
     }
 
     public void readInitialValues(){
-        Vector<Map<String,String>> allValues = new Vector<Map<String,String>>();
         allValues.add(readFromDB("HouseSystem"));
         allValues.add(readFromDB("Locks"));
         allValues.add(readFromDB("GarageDoors"));
         allValues.add(readFromDB("Lights"));
         allValues.add(readFromDB("Sensors"));
         allValues.add(readFromDB("Windows"));
+        allValues.add(readFromDB("MotionDetector"));
     }
 
 
@@ -228,14 +186,17 @@ public class Security extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         String turnToMap;
-                        System.out.println(("Response is: " + response.toString()));
-                        turnToMap = response.substring(2);
-                        turnToMap = response.substring(2, turnToMap.length());
+                        turnToMap = response.substring(1);
+                        turnToMap = response.substring(3, turnToMap.length());
+                        turnToMap = turnToMap.substring(0, turnToMap.length() - 4);
                         String[] initialSplit = turnToMap.split(",");
                         for (int i =0; i < initialSplit.length; i++){
                             String[] KVP = initialSplit[i].split(":");
-                            KVP[0].replace("\"\"", "");
-                            KVP[1].replace("\"\"", "");
+                            KVP[0] = KVP[0].substring(1);
+                            KVP[0] = KVP[0].substring(0, KVP[0].length() - 1);
+                            KVP[1] = KVP[1].substring(1);
+                            KVP[1] = KVP[1].substring(0, KVP[1].length() - 1);
+                            System.out.println("Key: " + KVP[0] + " Value: " + KVP[1]);
                             returnMap.put(KVP[0], KVP[1]);
                         }
                     }
@@ -290,9 +251,22 @@ public class Security extends AppCompatActivity {
 
     }
 
-    private void testSystem(View view){
-
+    public void testSystem(View view) {
+        for (Map<String, String> currentSensor : allValues) {
+            if (!currentSensor.get("SensorTripped").equals("null")) {
+                writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
+            }
+        }
     }
 
+    private int getIndex(Spinner spinner, String myString){
+        int index = 0;
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
+    }
 
 }

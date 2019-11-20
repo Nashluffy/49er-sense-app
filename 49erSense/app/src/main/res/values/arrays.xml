@@ -2,8 +2,7 @@
 <resources>
     <string-array name="SecuritySystem">
         <item>Disarmed</item>
-        <item>Armed Stay</item>
-        <item>Armed Away</item>
+        <item>Armed</item>
     </string-array>
     <string-array name="GarageDoors">
         <item>Open</item>
@@ -32,8 +31,8 @@
         <item>Upstairs Lights - Off</item>
     </string-array>
     <string-array name="MotionDetector">
-        <item>Main Floor - Active</item>
-        <item>Main Floor - Inactive</item>
+        <item>Active</item>
+        <item>Inactive</item>
     </string-array>
 
     <string-array name="Appliances">
@@ -43,8 +42,8 @@
     </string-array>
 
     <string-array name="Locks">
-        <item>All Doors - Locked</item>
-        <item>All Doors - Unlocked</item>
+        <item>Locked</item>
+        <item>Unlocked</item>
     </string-array>
 
     <string-array name="Windows">

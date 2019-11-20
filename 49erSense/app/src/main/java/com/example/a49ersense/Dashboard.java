@@ -12,7 +12,7 @@ import android.widget.VideoView;
 
 public class Dashboard extends AppCompatActivity {
 
-    private static final String webcamURL = "http://10.0.2.2:8081/stream.mjpg";
+    private static final String webcamURL = "http://192.168.1.2:8081/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

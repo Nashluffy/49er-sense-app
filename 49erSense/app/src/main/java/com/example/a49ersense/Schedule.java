@@ -73,19 +73,20 @@ public class Schedule extends AppCompatActivity {
         final EditText startDate1 = findViewById(R.id.startdate1);
         final EditText startTime1 = findViewById(R.id.starttime1);
         final EditText duration1 = findViewById(R.id.duration1);
+        final EditText endDate1 = findViewById(R.id.endtime1);
 
 
         final EditText appliance2= findViewById(R.id.appliance2);
         final EditText startDate2 = findViewById(R.id.startdate2);
         final EditText startTime2 = findViewById(R.id.starttime2);
         final EditText duration2 = findViewById(R.id.duration2);
-
+        final EditText endDate2 = findViewById(R.id.endtime2);
 
         final EditText appliance3= findViewById(R.id.appliance3);
         final EditText startDate3 = findViewById(R.id.startdate3);
         final EditText startTime3 = findViewById(R.id.starttime3);
         final EditText duration3 = findViewById(R.id.duration3);
-
+        final EditText endDate3 = findViewById(R.id.endtime3);
 
         final EditText appliance4= findViewById(R.id.appliance4);
         final EditText startDate4 = findViewById(R.id.startdate4);
@@ -171,11 +172,10 @@ public class Schedule extends AppCompatActivity {
                 if (!duration3.hasFocus()) {
                     if (duration3.getText().length() != 0) {
                         try {
-                            writeToFile(appliance3.getText().toString().trim() + "," + startDate3.getText().toString().trim() + "," +
-                                    startTime3.getText().toString().trim() + "," + duration3.getText().toString().trim(), getApplicationContext(), "schedule.txt");
+                            writeToDB(appliance1.toString(),startDate1.toString(),endDate1.toString(), startTime1.toString(), duration1.toString());
                             System.out.println("Successfully wrote new line");
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            System.out.println("Something went wrong");
                         }
                     } else {
                         //This is a little more complicated... Now we have to find the line in our text file and delete it
@@ -354,7 +354,7 @@ public class Schedule extends AppCompatActivity {
     public void writeToDB(final String appliance, final String startDate, final String endDate, final String startTime, final String duration) {
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_UPDATE_SCHEDULE,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.URL_INSERT_SCHEDULE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
