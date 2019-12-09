@@ -25,10 +25,8 @@
         <item>Upstairs - Current Temp</item>
     </string-array>
     <string-array name="Lights">
-        <item>Main Floor Lights - On</item>
-        <item>Main Floor Lights - Off</item>
-        <item>Upstairs Lights - On</item>
-        <item>Upstairs Lights - Off</item>
+        <item>Main-On</item>
+        <item>Main-Off</item>
     </string-array>
     <string-array name="MotionDetector">
         <item>Active</item>

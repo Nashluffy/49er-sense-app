@@ -61,8 +61,8 @@ public class Security extends AppCompatActivity {
         final Spinner sensors = findViewById(R.id.sensors);
         final Spinner motionDetector = findViewById(R.id.motionDetector);
 
-        securitySystem.setSelection(getIndex(securitySystem, allValues.get(0).get("HouseSystem")));
-        garageDoors.setSelection(getIndex(garageDoors, allValues.get(2).get("GarageDoors")));
+        //securitySystem.setSelection(getIndex(securitySystem, allValues.get(0).get("HouseSystem")));
+        //garageDoors.setSelection(getIndex(garageDoors, allValues.get(2).get("GarageDoors")));
 
         securitySystem.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -253,13 +253,25 @@ public class Security extends AppCompatActivity {
 
     public void testSystem(View view) {
         for (Map<String, String> currentSensor : allValues) {
-            if (!currentSensor.get("SensorTripped").equals("null")) {
+            if (!currentSensor.get("SensorTripped").equals("null") && currentSensor.get("SensorState").equals("Armed")) {
+                writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
+            }
+            else if (!currentSensor.get("SensorTripped").equals("null") && currentSensor.get("SensorState").equals("Closed")) {
+                writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
+            }
+            else if (!currentSensor.get("SensorTripped").equals("null") && currentSensor.get("SensorState").equals("Active")) {
+                writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
+            }
+            else if (!currentSensor.get("SensorTripped").equals("null") && currentSensor.get("SensorState").equals("Locked")) {
+                writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
+            }
+            else if (!currentSensor.get("SensorTripped").equals("null") && currentSensor.get("SensorState").equals("On")) {
                 writeToDB(currentSensor.get("SensorName"), currentSensor.get("SensorState"), "true");
             }
         }
     }
 
-    private int getIndex(Spinner spinner, String myString){
+    /*private int getIndex(Spinner spinner, String myString){
         int index = 0;
         for (int i=0;i<spinner.getCount();i++){
             if (spinner.getItemAtPosition(i).equals(myString)){
@@ -268,5 +280,6 @@ public class Security extends AppCompatActivity {
         }
         return index;
     }
+     */
 
 }
